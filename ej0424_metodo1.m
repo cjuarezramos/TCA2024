@@ -25,10 +25,54 @@ aBPBO = 180-aPOPB-aOPOB
 % Bisetriz PAPO
 OB = mPO/sind(aBPBO)*sind(aPOPB)
 
-plot([0-OB,real(p_d(1))],[0,imag(p_d(1))],'b',"LineWidth",2)
+B = 0 - OB;
+
+plot([B,real(p_d(1))],[0,imag(p_d(1))],'b',"LineWidth",2)
 
 %BC
 aPCPB = phi_a/2;
 aPDPB = phi_a/2;
 aCBCP = 180-aPCPB-(180-aBPBO)
-BC = 
+mBP = sqrt((B-real(p_d(1)))^2+(0-imag(p_d(1)))^2)
+
+BC = mBP/sind(aCBCP)*sind(aPCPB);
+C = B-BC;
+
+plot([C,real(p_d(1))],[0,imag(p_d(1))],'k',"LineWidth",2)
+
+
+%BD
+aDBDP = 180-aPDPB-aBPBO;
+BD = mBP/sind(aDBDP)*sind(aPDPB)
+D = B+BD;
+
+plot([D,real(p_d(1))],[0,imag(p_d(1))],'k',"LineWidth",2)
+
+T = 1/abs(D)
+alfa = D/C
+
+Gc = tf([1, 1/T],[1,1/T/alfa])
+
+Gp = tf(10,[1,1,0])
+
+G = Gc*Gp
+figure
+rlocus(G)
+Kc = 1.23;
+
+
+gc = (s+1/T)/(s+1/T/alfa)
+
+t = gc*gp/(1+gc*gp)
+t = simplify(t)
+[nt,dt] = numden(t) % divido en numerador y denomiandor
+nt = coeffs(nt) % saco coeficientes de polinomio del numerador
+dt = coeffs(dt) % saco coeficientes de poliniomio del denominador
+nt = double(nt) % convierto de simbólico a doble
+dt = double(dt)
+nt = flip(nt) % invierto para que el mayor exponente me quede en la primera posición
+dt = flip(dt)
+nt = nt/dt(1) % divido entre el coeficiente mayor del denominador, para que me quede 1 en s de mayor potencia
+dt = dt/dt(1)
+T = tf(nt,dt) % Función de transferencia.
+step(T)
