@@ -28,7 +28,29 @@ phi = 180-agp % deficiencia de angulo
 
 % 4. Calcular polo y cero
 % metodo 2
-s_cero=-1;
+sz=1;
+% angulo de monomio numerador del controlador
+gcnum=(s+sz)
+agcnum=double(angle(subs(gcnum,s,pd1)))*180/pi
+agcden = agcnum - phi
+sp = imag(pd1)/tand(agcden)-real(pd1)
+
+gc = (s+sz)/(s+sp)
+agc = double(angle(subs(gc,s,pd1)))*180/pi
+
+ag = double(angle(subs(gc*gp,s,pd1)))*180/pi
+
+% 5. Calcular Kc
+% funcion de transferencia de lazo abierto
+
+numla=conv(10,[1,sz]);
+denla=conv(conv([1,0],[1,1]),[1,sp])
+gla = tf(numla,denla)
+
+rlocus(gla)
+Kc = 0.9;
+
+
 
 
 
