@@ -61,18 +61,18 @@ rlocus(G)
 Kc = 1.23;
 
 
-gc = (s+1/T)/(s+1/T/alfa)
-
-t = gc*gp/(1+gc*gp)
-t = simplify(t)
-[nt,dt] = numden(t) % divido en numerador y denomiandor
-nt = coeffs(nt) % saco coeficientes de polinomio del numerador
-dt = coeffs(dt) % saco coeficientes de poliniomio del denominador
-nt = double(nt) % convierto de simbólico a doble
-dt = double(dt)
-nt = flip(nt) % invierto para que el mayor exponente me quede en la primera posición
-dt = flip(dt)
-nt = nt/dt(1) % divido entre el coeficiente mayor del denominador, para que me quede 1 en s de mayor potencia
-dt = dt/dt(1)
-T = tf(nt,dt) % Función de transferencia.
-step(T)
+% gc = (s+1/T)/(s+1/T/alfa)
+% 
+% t = gc*gp/(1+gc*gp)
+% t = simplify(t)
+% [nt,dt] = numden(t) % divido en numerador y denomiandor
+% nt = coeffs(nt) % saco coeficientes de polinomio del numerador
+% dt = coeffs(dt) % saco coeficientes de poliniomio del denominador
+% nt = double(nt) % convierto de simbólico a doble
+% dt = double(dt)
+% nt = flip(nt) % invierto para que el mayor exponente me quede en la primera posición
+% dt = flip(dt)
+% nt = nt/dt(1) % divido entre el coeficiente mayor del denominador, para que me quede 1 en s de mayor potencia
+% dt = dt/dt(1)
+% T = tf(nt,dt) % Función de transferencia.
+% step(T)
