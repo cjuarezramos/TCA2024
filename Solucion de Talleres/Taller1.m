@@ -174,7 +174,7 @@ if ~isempty(i)
                 rlocus(Gla)
                 title('ii. Lugar de las raices del ejercicio 2.a.')
                 disp('ii. Lugar de las raices del ejercicio 2.a., dada la Función de Transferencia de Lazo abierto: ')
-                disp(Gla)
+                Gla
                 [r,k] = rlocus(Gla);
                 sobr_enl=exp(-real(r)./abs(imag(r))*pi);
                 [a,b,c] = find(sobr_enl>10&sobr_enl<15);
@@ -216,7 +216,7 @@ if ~isempty(i)
                 sz = data_E1(i,14);
                 sp2 = data_E1(i,12);
                 Gla = tf(A*[1,sz],conv([1,0],conv([1,sp1],[1,sp2])));
-                disp(Gla)
+                Gla
                 rlocus(Gla)
                 [r,k] = rlocus(Gla);
                 Z = -real(r)./abs(r);
